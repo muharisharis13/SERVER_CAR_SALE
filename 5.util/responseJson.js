@@ -16,7 +16,7 @@ const responseJson = (res,data,code) =>{
         case 500:
             return res.status(500).json({
                 status:responseTypes(500),
-                error:data.parent.sqlMessage
+                data
             })
         case 401:
             return res.status(401).json({

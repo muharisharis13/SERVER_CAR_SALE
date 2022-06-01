@@ -16,8 +16,8 @@ ApiRoutes(app);
 
 // ====DATABASE
 
+db.sync({alter:true});
 db.authenticate().then(()=> console.log('berhasil terkoneksi dengan database'))
-
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {

@@ -20,6 +20,7 @@ exports.checkToken = async(req, res, next) => {
       if(resultUser){
         res.userData = decoded;
 
+        next();
       }
       else{
         const errText = {
@@ -29,7 +30,6 @@ exports.checkToken = async(req, res, next) => {
 
       }
     })
-    next();
   } catch (err) {
     const errText = {
       message:"Authentication Error !"

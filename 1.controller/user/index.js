@@ -1,29 +1,59 @@
 const models = require('../../3.models');
 const utils = require("../../5.util")
 
-exports.getUser = (req, res) => {
+exports.getUser = async (req, res) => {
   try {
-    res.status(200).send("Fitur User");
+    const result = await models.user.findAll()
+    utils.responseJson(res, result, 200)
   } catch (error) {
-    res.status(500).json(error);
+    utils.responseJson(res, error, 500)
   }
 };
 
-
-exports.editUser = (req, res) => {
-  const { id } = req.params;
+exports.getDetailUser = async (req, res) => {
+  const { id } = req.params
   try {
-    res.status(200).send(`Edit User ${id}`);
+    const result = await models.user.findOne({ where: { id: id } })
+    utils.responseJson(res, result, 200)
   } catch (error) {
-    res.status(500).json(error);
+    utils.responseJson(res, error, 500)
   }
 }
 
-exports.hapusUser = (req, res) => {
+
+exports.editUser = async (req, res) => {
+  const { email, tel, name } = req.body;
+  try {
+    await models.user.findOne({ where: { email: email, id: req.params.id } })
+      .then(result => {
+        if (result?.dataValues) {
+          result.update({
+            tel,
+            name
+          })
+          utils.responseJson(res, result, 200)
+        } else {
+          result = { message: "Data Tidak Ditemukan" }
+          utils.responseJson(res, result, 200)
+        }
+      })
+  } catch (error) {
+    utils.responseJson(res, error, 500)
+  }
+}
+
+exports.hapusUser = async (req, res) => {
   const { id } = req.params;
   try {
-    res.status(200).send(`Hapus User ${id}`);
+    await models.user.destroy({ where: { id: id } })
+      .then(result => {
+        result = {
+          message: "Data Berhasil Di Hapus"
+        }
+        utils.responseJson(res, result, 200)
+
+      })
   } catch (error) {
-    res.status(500).json(error);
+    utils.responseJson(res, error, 500)
   }
 }
