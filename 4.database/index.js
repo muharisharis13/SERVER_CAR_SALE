@@ -1,6 +1,12 @@
 const sequalize = require("sequelize");
 
-exports.db = new sequalize("db_car_sale", "root", "", {
+const DB_NAME = process.env.DB_NAME;
+const DB_USER = process.env.DB_USER;
+const DB_PASS = process.env.DB_PASS;
+const DB_HOST = process.env.DB_HOST;
+
+
+exports.db = new sequalize(DB_NAME, DB_USER, DB_PASS, {
   dialect: "mysql",
-  host: "localhost",
+  host: DB_HOST,
 });
