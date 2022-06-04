@@ -1,0 +1,1202 @@
+{
+	"info": {
+		"_postman_id": "41e32364-7452-4e55-b07b-c625a4a500d6",
+		"name": "CARSALE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Daftar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"user2@email.com\",\r\n    \"password\" : \"password\",\r\n    \"tel\" : \"1234512345\",\r\n    \"name\" : \"Simulasi User 2\",\r\n    \"role\" : \"User\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_auth_client}}/register",
+							"host": [
+								"{{url_auth_client}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "{{url_client}}/register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"admin@email.com\",\r\n    \"password\" : \"password\",\r\n    \"tel\" : \"1234512345\",\r\n    \"name\" : \"Simulasi Admin\",\r\n    \"role\" : \"Admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_auth_client}}/register",
+									"host": [
+										"{{url_auth_client}}"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "218"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"da-GhcuR7O8bXz5NogWKYv2pW+bsB4\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jun 2022 09:15:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": {\n        \"code\": 201,\n        \"message\": \"successfully created data\"\n    },\n    \"data\": {\n        \"email\": \"user2@email.com\",\n        \"name\": \"Simulasi User 2\",\n        \"tel\": \"1234512345\",\n        \"createdAt\": \"2022-06-01T09:15:16.977Z\",\n        \"updatedAt\": \"2022-06-01T09:15:16.977Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"email@com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_auth_web_api}}/login",
+							"host": [
+								"{{url_auth_web_api}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "{{url_client}}/login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"email@com\",\r\n    \"password\": \"password\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_auth_client}}/login",
+									"host": [
+										"{{url_auth_client}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "498"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1f2-XteSeCj7MWi+NnaFl8JTfelznho\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jun 2022 07:52:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": {\n        \"code\": 200,\n        \"message\": \"successfully fetch API\"\n    },\n    \"data\": {\n        \"id\": 1,\n        \"email\": \"email@com\",\n        \"name\": \"Result Test Register\",\n        \"createdAt\": \"2022-05-16T10:21:48.000Z\",\n        \"updatedAt\": \"2022-05-16T10:21:48.000Z\",\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJlbWFpbEBjb20iLCJuYW1lIjoiUmVzdWx0IFRlc3QgUmVnaXN0ZXIiLCJjcmVhdGVkQXQiOiIyMDIyLTA1LTE2VDEwOjIxOjQ4LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIyLTA1LTE2VDEwOjIxOjQ4LjAwMFoiLCJpYXQiOjE2NTQwNjk5Mjh9.S-Od1iJVTjgb9A76NPsHL3FJ_0ubFN3U4OGIbR681Ik\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "utils",
+			"item": [
+				{
+					"name": "Check Email",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"email@com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_client}}/check-email",
+							"host": [
+								"{{url_client}}"
+							],
+							"path": [
+								"check-email"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "{{url_client}}/check-email",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"email@com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_client}}/check-email",
+									"host": [
+										"{{url_client}}"
+									],
+									"path": [
+										"check-email"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "257"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"101-yqEHlQNXTB56/EB//J6u+LAbrx0\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 16 May 2022 09:53:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": {\n        \"code\": 200,\n        \"message\": \"successfully fetch API\"\n    },\n    \"data\": {\n        \"id\": 1,\n        \"email\": \"email@com\",\n        \"password\": \"password\",\n        \"tel\": \"123141231\",\n        \"name\": \"Result Test Register\",\n        \"role\": \"Admin\",\n        \"createdAt\": \"2022-05-16T09:27:55.000Z\",\n        \"updatedAt\": \"2022-05-16T09:27:55.000Z\"\n    }\n}"
+						},
+						{
+							"name": "{{url_client}}/check-email",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"muharis@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_client}}/check-email",
+									"host": [
+										"{{url_client}}"
+									],
+									"path": [
+										"check-email"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "70"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"46-EFrsgVVYEc7Ohxy9/LDqh6R9tIY\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 16 May 2022 09:54:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": {\n        \"code\": 200,\n        \"message\": \"successfully fetch API\"\n    },\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_user}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url_client}}",
+							"host": [
+								"{{url_client}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token_user}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url_client}}",
+									"host": [
+										"{{url_client}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "10"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a-QXmfBnKb8THnMubU5tInGQtJ9Ng\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jun 2022 07:52:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "Fitur User"
+						}
+					]
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_user}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"email@com1\",\r\n    \"tel\": \"12344444\",\r\n    \"name\": \"Simulasi Edit\",\r\n    \"role\": \"Penjual\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_client}}/edit",
+							"host": [
+								"{{url_client}}"
+							],
+							"path": [
+								"edit"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Edit",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token_user}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"user@email.com\",\r\n    \"tel\": \"123456789\",\r\n    \"name\": \"Simulasi User Edit\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_client}}/edit/2",
+									"host": [
+										"{{url_client}}"
+									],
+									"path": [
+										"edit",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "283"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"11b-fY6Ln3jU/O35/oYF6DGnk7Y4qhE\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jun 2022 11:31:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": {\n        \"code\": 200,\n        \"message\": \"successfully fetch API\"\n    },\n    \"data\": {\n        \"id\": 2,\n        \"email\": \"user@email.com\",\n        \"password\": \"5f4dcc3b5aa765d61d8327deb882cf99\",\n        \"tel\": \"123456789\",\n        \"name\": \"Simulasi User Edit\",\n        \"role\": \"User\",\n        \"createdAt\": \"2022-06-01T11:11:37.000Z\",\n        \"updatedAt\": \"2022-06-01T11:31:32.373Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_user}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url_client}}/hapus/6",
+							"host": [
+								"{{url_client}}"
+							],
+							"path": [
+								"hapus",
+								"6"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete User",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token_user}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url_client}}/hapus/6",
+									"host": [
+										"{{url_client}}"
+									],
+									"path": [
+										"hapus",
+										"6"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "102"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"66-7nCC16HIK2XXxMMDJmsiYhng7ho\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jun 2022 11:38:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": {\n        \"code\": 200,\n        \"message\": \"successfully fetch API\"\n    },\n    \"data\": {\n        \"message\": \"Data Berhasil Di Hapus\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Detail User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_user}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url_client}}/detail/2",
+							"host": [
+								"{{url_client}}"
+							],
+							"path": [
+								"detail",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Detail User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token_user}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url_client}}/detail/2",
+									"host": [
+										"{{url_client}}"
+									],
+									"path": [
+										"detail",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "281"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"119-U44uXZ4hkBGdFGIWfh3yPWJUhjs\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jun 2022 11:52:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": {\n        \"code\": 200,\n        \"message\": \"successfully fetch API\"\n    },\n    \"data\": {\n        \"id\": 2,\n        \"email\": \"user@email.com\",\n        \"password\": \"5f4dcc3b5aa765d61d8327deb882cf99\",\n        \"tel\": 123456789,\n        \"name\": \"Simulasi User Edit\",\n        \"role\": \"User\",\n        \"createdAt\": \"2022-06-01T11:11:37.000Z\",\n        \"updatedAt\": \"2022-06-01T11:31:32.000Z\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Produk",
+			"item": [
+				{
+					"name": "Get Produk",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_user}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url_client}}/produk",
+							"host": [
+								"{{url_client}}"
+							],
+							"path": [
+								"produk"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Produk",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token_user}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url_client}}/produk",
+									"host": [
+										"{{url_client}}"
+									],
+									"path": [
+										"produk"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "518"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"206-s/dtwZKO4l3BRkTlMkoXgAW+0O0\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jun 2022 11:29:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": {\n        \"code\": 200,\n        \"message\": \"successfully fetch API\"\n    },\n    \"data\": [\n        {\n            \"id\": 1,\n            \"nama_penjual\": \"Simulasi Nama Penjual Edited\",\n            \"no_hp\": 812345655,\n            \"email\": \"penjual3@email.com\",\n            \"merek\": \"Honda\",\n            \"model\": \"Civic 2018 Black\",\n            \"createdAt\": \"2022-06-01T11:09:57.000Z\",\n            \"updatedAt\": \"2022-06-01T11:27:56.000Z\"\n        },\n        {\n            \"id\": 2,\n            \"nama_penjual\": \"Simulasi Nama Penjual Edited\",\n            \"no_hp\": 1215556,\n            \"email\": \"penjual2@email.com\",\n            \"merek\": \"Honda\",\n            \"model\": \"Civic Type R 2018 White\",\n            \"createdAt\": \"2022-06-01T11:10:03.000Z\",\n            \"updatedAt\": \"2022-06-01T11:28:29.000Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Add Produk",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_user}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nama_penjual\" : \"Simulasi Nama Penjual\",\r\n    \"no_hp\" : \"0812345655\",\r\n    \"email\" : \"penjual3@email.com\",\r\n    \"merek\" : \"Toyota\",\r\n    \"model\" : \"Avanza 2018 Black\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_client}}/produk/add",
+							"host": [
+								"{{url_client}}"
+							],
+							"path": [
+								"produk",
+								"add"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Add Produk",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token_user}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nama_penjual\" : \"Simulasi Nama Penjual\",\r\n    \"no_hp\" : \"0812345655\",\r\n    \"email\" : \"penjual3@email.com\",\r\n    \"merek\" : \"Toyota\",\r\n    \"model\" : \"Avanza 2018 Black\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_client}}/produk/add",
+									"host": [
+										"{{url_client}}"
+									],
+									"path": [
+										"produk",
+										"add"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "286"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"11e-NH2HzZP8q2938MSaZ5NbDtgoCII\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jun 2022 11:10:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": {\n        \"code\": 200,\n        \"message\": \"successfully fetch API\"\n    },\n    \"data\": {\n        \"id\": 2,\n        \"nama_penjual\": \"Simulasi Nama Penjual\",\n        \"no_hp\": \"0812345655\",\n        \"email\": \"penjual3@email.com\",\n        \"merek\": \"Toyota\",\n        \"model\": \"Avanza 2018 Black\",\n        \"updatedAt\": \"2022-06-01T11:10:03.126Z\",\n        \"createdAt\": \"2022-06-01T11:10:03.126Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Detail Produk",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_user}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_client}}/produk/detail/2",
+							"host": [
+								"{{url_client}}"
+							],
+							"path": [
+								"produk",
+								"detail",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Detail Produk",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_client}}/produk/edit/2",
+									"host": [
+										"{{url_client}}"
+									],
+									"path": [
+										"produk",
+										"edit",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "283"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"11b-0ioe4zxNU5eBO0lNoJmjt30XCsk\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jun 2022 11:20:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": {\n        \"code\": 200,\n        \"message\": \"successfully fetch API\"\n    },\n    \"data\": {\n        \"id\": 2,\n        \"nama_penjual\": \"Simulasi Nama Penjual\",\n        \"no_hp\": 812345655,\n        \"email\": \"penjual3@email.com\",\n        \"merek\": \"Toyota\",\n        \"model\": \"Avanza 2018 Black\",\n        \"createdAt\": \"2022-06-01T11:10:03.000Z\",\n        \"updatedAt\": \"2022-06-01T11:10:03.000Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Edit Produk",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_user}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nama_penjual\": \"Simulasi Nama Penjual Edited\",\r\n    \"no_hp\": 1215556,\r\n    \"email\": \"penjual2@email.com\",\r\n    \"merek\": \"Honda\",\r\n    \"model\": \"Civic Type R 2018 White\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_client}}/produk/edit/4",
+							"host": [
+								"{{url_client}}"
+							],
+							"path": [
+								"produk",
+								"edit",
+								"4"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Edit Produk",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nama_penjual\": \"Simulasi Nama Penjual Edited\",\r\n    \"no_hp\": 1215556,\r\n    \"email\": \"penjual2@email.com\",\r\n    \"merek\": \"Honda\",\r\n    \"model\": \"Civic Type R 2018 White\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url_client}}/produk/edit/4",
+									"host": [
+										"{{url_client}}"
+									],
+									"path": [
+										"produk",
+										"edit",
+										"4"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "100"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"64-MhyqzTkCgBvHg5LwzGwWeeheLSo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jun 2022 11:28:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": {\n        \"code\": 200,\n        \"message\": \"successfully fetch API\"\n    },\n    \"data\": {\n        \"message\": \"Data Tidak Ditemukan\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Produk",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token_user}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url_client}}/produk/delete/1",
+							"host": [
+								"{{url_client}}"
+							],
+							"path": [
+								"produk",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Delete Produk",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token_user}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url_client}}/produk/delete/1",
+									"host": [
+										"{{url_client}}"
+									],
+									"path": [
+										"produk",
+										"delete",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "109"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6d-woHpqsAEiFkExwf/tWKn+52FGHc\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Jun 2022 12:00:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": {\n        \"code\": 200,\n        \"message\": \"successfully fetch API\"\n    },\n    \"data\": {\n        \"message\": \"Data Produk Berhasil Di Hapus\"\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
