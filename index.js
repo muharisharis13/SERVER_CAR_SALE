@@ -1,10 +1,11 @@
-const express = require("express");
+require("node-absolute-path");
+const express = include("express");
 const app = express();
-const bodyParser = require("body-parser");
-const cors = require("cors");
-require("dotenv").config();
-const { ApiRoutes } = require("./2.routes");
-// const { db } = require("./4.database");
+const bodyParser = include("body-parser");
+const cors = include("cors");
+include("dotenv").config();
+const { ApiRoutes } = include("/src/2.routes");
+const { db } = include("/src/4.database");
 
 app.use(cors());
 app.options("*", cors());
@@ -16,11 +17,10 @@ ApiRoutes(app);
 
 // ====DATABASE
 
-// db.on("error", console.error.bind(console, "database connect error !"));
-// db.once("open", () => {
-//   console.log("database sekarang terkoneksi");
-// });
-
+db.sync();
+db.authenticate().then(() =>
+  console.log("berhasil terkoneksi dengan database")
+);
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
