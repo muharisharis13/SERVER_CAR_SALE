@@ -10,10 +10,11 @@ exports.checkToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const decoded = jwt.verify(token, jwt_key);
-    const { email } = decoded;
+    const { email, role } = decoded;
     await ModelUser.findOne({
       where: {
         email: email,
+        role,
       },
     }).then((resultUser) => {
       if (resultUser) {

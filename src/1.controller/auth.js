@@ -22,7 +22,7 @@ exports.authUser = async (req, res) => {
 };
 
 exports.registerUser = async (req, res) => {
-  const { email, password, tel, name, role } = req.body;
+  const { email, password, tel, name } = req.body;
   try {
     await models.user
       .create({
@@ -30,7 +30,7 @@ exports.registerUser = async (req, res) => {
         password: utils.crypto.hashPassword(password),
         tel,
         name,
-        role,
+        role: "user",
       })
       .then((result) => {
         const { email, name, tel, createdAt, updatedAt } = result;
@@ -50,12 +50,13 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
-  const { email } = req.body;
+  const { email, password } = req.body;
   try {
     await models.user
       .findOne({
         where: {
           email,
+          password: utils.crypto.hashPassword(password),
         },
       })
       .then((result) => {

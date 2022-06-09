@@ -6,6 +6,7 @@ const utils = require("../5.util");
 const checkToken = utils.token.checkTokenAdmin;
 const auth = controller.ControllerAuth;
 const product = controller.ControllerProduk;
+const preSales = controller.ControllerPreSales;
 
 router.post("/auth/login", auth.loginAdmin);
 router.post("/auth/register", auth.registerAdmin);
@@ -14,5 +15,7 @@ router.post("/product", checkToken, product.addProduk);
 router.put("/product/:id", checkToken, product.editProduk);
 router.get("/product/:id", checkToken, product.getDetailProduk);
 router.delete("/product/:id", checkToken, product.deleteProduk);
+
+router.get("/pre-sales", checkToken, preSales.getDataListSales);
 
 module.exports = router;

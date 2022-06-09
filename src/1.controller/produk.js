@@ -1,4 +1,5 @@
 const models = require("../3.models");
+const { responseJson, getWithPagination, compiler } = require("../5.util");
 const utils = require("../5.util");
 
 // PRODUK==========================
@@ -6,15 +7,19 @@ const utils = require("../5.util");
 const produk = models.produk;
 
 exports.getProduk = async (req, res) => {
+  const { page = 1, limit = 10, order_by = "id", sort_by = "ASC" } = req.query;
   try {
-    await produk
-      .findAll()
+    await getWithPagination({
+      models: produk,
+      page,
+      limit,
+      order_by,
+      sort_by,
+    })
       .then((result) => {
-        utils.responseJson(res, result, 200);
+        responseJson(res, compiler.compilerPage(result, page, limit), 200);
       })
-      .catch((err) => {
-        utils.responseJson(res, err.message, 400);
-      });
+      .catch((err) => responseJson(res, err.parent.sqlMessage, 400));
   } catch (error) {
     utils.responseJson(res, error.parent.sqlMessage, 500);
   }
@@ -66,7 +71,7 @@ exports.addProduk = async (req, res) => {
       merek,
       model,
     });
-    utils.responseJson(res, data1, 200);
+    utils.responseJson(res, data1, 201);
   } catch (error) {
     utils.responseJson(res, error, 500);
   }

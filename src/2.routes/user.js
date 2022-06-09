@@ -1,12 +1,17 @@
-const express = include("express");
+const express = require("express");
 const router = express.Router();
-const Controller = include("/src/1.controller");
-const utils = include("/src/5.util");
+const Controller = require("../1.controller");
+const utils = require("../5.util");
 
 const checkToken = utils.token.checkToken;
 
 router.post("/auth/login", Controller.ControllerAuth.loginUser);
 router.post("/auth/register", Controller.ControllerAuth.registerUser);
+router.post(
+  "/pre-sales",
+  checkToken,
+  Controller.ControllerPreSales.addPreSales
+);
 
 // router.get("/", checkToken, Controller.ControllerUser.getUser);
 // router.get("/detail/:id", checkToken, Controller.ControllerUser.getDetailUser);
