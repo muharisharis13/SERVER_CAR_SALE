@@ -1,5 +1,11 @@
 const { preSales, user } = require("../3.models");
-const { responseJson, getWithPagination, compiler } = require("../5.util");
+const { responseJson, getWithPagination, compiler, nodemailer } = require("../5.util");
+
+
+// exports.sendMail = (req, res) => {
+//   const { merek, model, name, tel, email, id_user } = req.body;
+
+// }
 
 exports.addPreSales = async (req, res) => {
   const { merek, model, name, tel, email, id_user } = req.body;
@@ -15,9 +21,17 @@ exports.addPreSales = async (req, res) => {
         id_user,
       })
       .then((resultPresales) => {
-        responseJson(res, resultPresales, 201);
+        if (resultPresales) {
+
+          nodemailer.sendSalesMail({ merek, model, name, tel, email })
+          responseJson(res, resultPresales.dataValues, 201);
+
+        }
       })
-      .catch((err) => responseJson(res, err.parent.sqlMessage, 400));
+      .catch((err) => {
+        console.log("ini error", err)
+        responseJson(res, err.message, 400)
+      });
   } catch (error) {
     responseJson(res, error.message, 500);
   }
@@ -42,3 +56,46 @@ exports.getDataListSales = async (req, res) => {
     responseJson(res, error.message, 500);
   }
 };
+
+exports.changeStatusPreSales = async (req, res) => {
+  const { status } = req.body
+  const { id } = req.query
+  try {
+    await preSales.findOne({ where: { id: id } }).then((result) => {
+      if (result?.dataValues) {
+        result.update({
+          status
+        });
+        responseJson(res, result, 200);
+      } else {
+        result = {
+          message: "Data Tidak Ditemukan",
+        };
+        responseJson(res, result, 200)
+      }
+    })
+      .catch((err) => responseJson(res, err.parent.sqlMessage, 400));
+
+  } catch (error) {
+    responseJson(res, error.message, 500);
+  }
+}
+
+exports.getDetailPreSales = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await preSales.findOne({ where: { id: id } }).then((result) => {
+      if (result?.dataValues) {
+        responseJson(res, result, 200)
+      } else {
+        result = {
+          message: "Data Tidak Ditemukan"
+        }
+        responseJson(res, result, 200);
+      }
+    }).catch((err) => responseJson(res, err.parent.sqlMessage, 400));
+  } catch (error) {
+    responseJson(res, error.message, 500)
+  }
+}

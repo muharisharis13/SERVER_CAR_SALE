@@ -17,5 +17,7 @@ router.get("/product/:id", checkToken, product.getDetailProduk);
 router.delete("/product/:id", checkToken, product.deleteProduk);
 
 router.get("/pre-sales", checkToken, preSales.getDataListSales);
+router.get("/pre-sales/:id", checkToken, preSales.getDetailPreSales);
+router.put("/pre-sales/update/status", checkToken, preSales.changeStatusPreSales);
 
 module.exports = router;

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Controller = require("../1.controller");
 const utils = require("../5.util");
+const Mail = require('../5.util/nodemailer')
 
 const checkToken = utils.token.checkToken;
 
@@ -12,6 +13,7 @@ router.post(
   checkToken,
   Controller.ControllerPreSales.addPreSales
 );
+// router.post("/sendmail",Mail.sendMail);
 
 // router.get("/", checkToken, Controller.ControllerUser.getUser);
 // router.get("/detail/:id", checkToken, Controller.ControllerUser.getDetailUser);
