@@ -1,7 +1,7 @@
 const sequalize = require("sequelize");
 const { db } = require("../4.database");
 
-const { STRING, INTEGER } = sequalize;
+const { STRING, INTEGER, DATE } = sequalize;
 
 const preSales = db.define(
   "pre_sales",
@@ -13,6 +13,7 @@ const preSales = db.define(
     email: { type: STRING, allowNull: false },
     id_user: { type: INTEGER, allowNull: false },
     status: { type: STRING, allowNull: false, defaultValue: "PENDING" },
+    inspection_date : {type: DATE, allowNull : true}
   },
   {
     timestamps: true,

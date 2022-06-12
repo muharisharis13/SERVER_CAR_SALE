@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const responseJson = require("./responseJson");
 const jwt_key = process.env.JWT_KEY;
 const jwt_key_admin = "admin2022";
-const models = include("/src/3.models");
+const models = require("../3.models");
 
 const ModelUser = models.user;
 

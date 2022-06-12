@@ -1,5 +1,5 @@
-const sequalize = include("sequelize");
-const { db } = include("/src/4.database");
+const sequalize = require("sequelize");
+const { db } = require("../4.database");
 
 const produk = db.define(
   "product",

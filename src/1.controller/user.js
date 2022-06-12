@@ -1,5 +1,5 @@
-const models = include("/src/3.models");
-const utils = include("/src/5.util");
+const models = require("../3.models");
+const utils = require("../5.util");
 
 exports.getUser = async (req, res) => {
   try {

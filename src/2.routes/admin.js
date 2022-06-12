@@ -1,4 +1,4 @@
-const express = include("express");
+const express = require("express");
 const router = express.Router();
 const controller = require("../1.controller");
 const utils = require("../5.util");
@@ -19,5 +19,8 @@ router.delete("/product/:id", checkToken, product.deleteProduk);
 router.get("/pre-sales", checkToken, preSales.getDataListSales);
 router.get("/pre-sales/:id", checkToken, preSales.getDetailPreSales);
 router.put("/pre-sales/update/status", checkToken, preSales.changeStatusPreSales);
+
+
+router.get("/status", checkToken, preSales.getStatus);
 
 module.exports = router;

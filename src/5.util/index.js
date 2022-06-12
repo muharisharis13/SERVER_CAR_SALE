@@ -4,6 +4,7 @@ const token = require("./token");
 const getWithPagination = require("./pagination");
 const compiler = require("./compiler");
 const nodemailer= require("./nodemailer")
+const moment = require("./moment")
 
 module.exports = {
   crypto,
@@ -11,5 +12,6 @@ module.exports = {
   token,
   getWithPagination,
   compiler,
-  nodemailer
+  nodemailer,
+  moment
 };
