@@ -1,10 +1,14 @@
+const { Op } = require("sequelize");
 const models = require("../3.models");
 const utils = require("../5.util");
 
 exports.getUser = async (req, res) => {
   try {
-    const result = await models.user.findAll();
-    utils.responseJson(res, result, 200);
+    const {search =''} = req.query;
+      const result = await models.user.findAll({where:{name:{[Op.like] : `%${search}%`}}});
+      utils.responseJson(res, result, 200);
+   
+    
   } catch (error) {
     utils.responseJson(res, error, 500);
   }

@@ -7,7 +7,7 @@ const utils = require("../5.util");
 const produk = models.produk;
 
 exports.getProduk = async (req, res) => {
-  const { page = 1, limit = 10, order_by = "id", sort_by = "ASC" } = req.query;
+  const { page = 1, limit = 10, order_by = "id", sort_by = "ASC",search='' } = req.query;
   try {
     await getWithPagination({
       models: produk,
@@ -15,6 +15,7 @@ exports.getProduk = async (req, res) => {
       limit,
       order_by,
       sort_by,
+      search
     })
       .then((result) => {
         responseJson(res, compiler.compilerPage(result, page, limit), 200);

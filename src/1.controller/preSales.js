@@ -38,7 +38,7 @@ exports.addPreSales = async (req, res) => {
 }
 
 exports.getDataListSales = async (req, res) => {
-  const { page = 1, limit = 10, order_by = 'id', sort_by = 'ASC' } = req.query
+  const { page = 1, limit = 10, order_by = 'id', sort_by = 'ASC',search='' } = req.query
 
   try {
     await getWithPagination({
@@ -46,7 +46,8 @@ exports.getDataListSales = async (req, res) => {
       page,
       limit,
       order_by,
-      sort_by
+      sort_by,
+      search
     })
       .then(result => {
         responseJson(res, compiler.compilerPage(result, page, limit), 200)
@@ -63,7 +64,6 @@ exports.changeStatusPreSales = async (req, res) => {
   let tes = new Date(date)
   let tes1 = tes.getHours()
 
-  console.log(tes1)
   try {
     preSales
       .findOne({
