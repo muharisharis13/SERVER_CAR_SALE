@@ -5,12 +5,12 @@ const responseJson = (res, data, code) => {
     case 200:
       return res.status(200).json({
         status: responseTypes(200),
-        data,
+        data: data,
       });
     case 201:
       return res.status(201).json({
         status: responseTypes(201),
-        data,
+        data: data,
       });
     case 500:
       return res.status(500).json({
