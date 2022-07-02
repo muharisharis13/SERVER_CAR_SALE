@@ -2,39 +2,26 @@ const express = require("express");
 const router = express.Router();
 const Controller = require("../1.controller");
 const utils = require("../5.util");
-const Mail = require('../5.util/nodemailer')
 
 const checkToken = utils.token.checkToken;
 
-router.post("/auth/login", Controller.ControllerAuth.loginUser);
-router.post("/auth/register", Controller.ControllerAuth.registerUser);
+const Auth = Controller.ControllerAuth;
+const Product = Controller.ControllerProduk;
+const ms_type_vehicle = Controller.ControllerMsTypeVehicle;
+const ms_merek = Controller.ControllerMerek;
+
+router.post("/auth/login", Auth.loginUser);
+router.post("/auth/register", Auth.registerUser);
 router.post(
   "/pre-sales",
   checkToken,
   Controller.ControllerPreSales.addPreSales
 );
-// router.post("/sendmail",Mail.sendMail);
+router.get("/product", Product.getProductUser);
+router.get("/product/featured", Product.getProductFeatured);
+router.get("/listYear", Product.getListYear);
 
-// router.get("/", checkToken, Controller.ControllerUser.getUser);
-// router.get("/detail/:id", checkToken, Controller.ControllerUser.getDetailUser);
-// router.put("/edit/:id", checkToken, Controller.ControllerUser.editUser);
-// router.delete("/hapus/:id", checkToken, Controller.ControllerUser.hapusUser);
-// router.get("/produk", checkToken, Controller.ControllerProduk.getProduk);
-// router.post("/produk/add", checkToken, Controller.ControllerProduk.addProduk);
-// router.get(
-//   "/produk/detail/:id",
-//   checkToken,
-//   Controller.ControllerProduk.getDetailProduk
-// );
-// router.put(
-//   "/produk/edit/:id",
-//   checkToken,
-//   Controller.ControllerProduk.editProduk
-// );
-// router.delete(
-//   "/produk/delete/:id",
-//   checkToken,
-//   Controller.ControllerProduk.deleteProduk
-// );
+router.get("/ms_type_vehicle", ms_type_vehicle.getMsJenisKendaraan);
+router.get("/ms_merek", ms_merek.getMsMerek);
 
 exports.User = router;

@@ -1,13 +1,78 @@
 const models = require("../3.models");
-const { responseJson, getWithPagination, compiler } = require("../5.util");
+const {
+  responseJson,
+  getWithPagination,
+  compiler: { compilerPage },
+} = require("../5.util");
 const utils = require("../5.util");
+const { Op } = require("sequelize");
 
 // PRODUK==========================
 
 const produk = models.produk;
 
-exports.getProduk = async (req, res) => {
-  const { page = 1, limit = 10, order_by = "id", sort_by = "ASC",search='' } = req.query;
+exports.getListYear = async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
+  try {
+    await produk
+      .findAndCountAll({
+        offset: 0 + (page - 1) * limit,
+        limit: limit,
+        attributes: ["tahun"],
+      })
+      .then((result) => {
+        result.rows = [...new Set(result.rows?.map((item) => item?.tahun))];
+        responseJson(res, compilerPage(result, page, limit), 200);
+      });
+  } catch (error) {
+    responseJson(res, error, 500);
+  }
+};
+
+exports.getProductUser = async (req, res) => {
+  const {
+    page = 1,
+    limit = 10,
+    order_by = "id",
+    sort_by = "ASC",
+    model = "",
+    merek = "",
+  } = req.query;
+  try {
+    await produk
+      .findAndCountAll({
+        offset: 0 + (page - 1) * limit,
+        limit: limit,
+        order: [[order_by, sort_by]],
+        where: {
+          [Op.or]: [
+            {
+              model: {
+                [Op.like]: `%${model}%`,
+              },
+              merek: {
+                [Op.like]: `%${merek}%`,
+              },
+            },
+          ],
+        },
+      })
+      .then((result) => {
+        responseJson(res, compilerPage(result, page, limit), 200);
+      });
+  } catch (error) {
+    responseJson(res, error, 500);
+  }
+};
+
+exports.getProductFeatured = async (req, res) => {
+  const {
+    page = 1,
+    limit = 10,
+    order_by = "id",
+    sort_by = "ASC",
+    search = "",
+  } = req.query;
   try {
     await getWithPagination({
       models: produk,
@@ -15,14 +80,39 @@ exports.getProduk = async (req, res) => {
       limit,
       order_by,
       sort_by,
-      search
-    })
-      .then((result) => {
-        responseJson(res, compiler.compilerPage(result, page, limit), 200);
-      })
-      .catch((err) => responseJson(res, err.parent.sqlMessage, 400));
+      field: "merek",
+      search,
+    }).then((result) => {
+      responseJson(res, compilerPage(result, page, limit), 200);
+    });
   } catch (error) {
-    utils.responseJson(res, error.parent.sqlMessage, 500);
+    responseJson(res, error, 500);
+  }
+};
+
+exports.getProduk = async (req, res) => {
+  const {
+    page = 1,
+    limit = 10,
+    order_by = "id",
+    sort_by = "ASC",
+    search = "",
+  } = req.query;
+  try {
+    await getWithPagination({
+      models: produk,
+      page,
+      limit,
+      order_by,
+      sort_by,
+      search,
+      field: "merek",
+    }).then((result) => {
+      responseJson(res, compilerPage(result, page, limit), 200);
+    });
+    // .catch((err) => responseJson(res, err.parent.sqlMessage, 400));
+  } catch (error) {
+    utils.responseJson(res, error, 500);
   }
 };
 

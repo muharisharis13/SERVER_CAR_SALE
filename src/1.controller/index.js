@@ -3,6 +3,8 @@ const ControllerAuth = require("./auth");
 const ControllerProduk = require("./produk");
 const ControllerAdmin = require("./admin");
 const ControllerPreSales = require("./preSales");
+const ControllerMsTypeVehicle = require("./ms_jenis_kendaraan");
+const ControllerMerek = require("./ms_merek");
 
 module.exports = {
   ControllerUser,
@@ -10,4 +12,6 @@ module.exports = {
   ControllerProduk,
   ControllerAdmin,
   ControllerPreSales,
+  ControllerMsTypeVehicle,
+  ControllerMerek,
 };
