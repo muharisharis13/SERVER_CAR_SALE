@@ -8,8 +8,6 @@ const produk_inspeksi = db.define(
     id_produk: {
       type: INTEGER,
       allowNull: false,
-      references: "products", // table name / models
-      referencesKey: "id", // id column from primary key models
     },
     status: {
       type: ENUM("1", "0"),

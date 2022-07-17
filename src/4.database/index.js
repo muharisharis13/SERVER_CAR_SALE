@@ -11,12 +11,13 @@ exports.db = new sequalize(DB_NAME, DB_USER, DB_PASS, {
   dialectOptions: {
     useUTC: false, //for reading from database
     dateStrings: true,
-    typeCast: function (field, next) { // for reading from database
-      if (field.type === 'DATETIME') {
-        return field.string()
+    typeCast: function (field, next) {
+      // for reading from database
+      if (field.type === "DATETIME") {
+        return field.string();
       }
-        return next()
-      },
+      return next();
+    },
   },
-  timezone: '+07:00'
+  timezone: "+07:00",
 });
