@@ -4,7 +4,7 @@ const {
   getWithPagination,
   compiler,
   nodemailer,
-  moment:momentUtil
+  moment: momentUtil
 } = require('../5.util')
 // const moment = require('moment')
 const sequelize = require('sequelize')
@@ -38,21 +38,31 @@ exports.addPreSales = async (req, res) => {
 }
 
 exports.getDataListSales = async (req, res) => {
-  const { page = 1, limit = 10, order_by = 'id', sort_by = 'ASC',search='' } = req.query
+  const { page = 1, limit = 10, order_by = 'id', sort_by = 'ASC', search = '', approve = false } = req.query
 
   try {
-    await getWithPagination({
-      models: preSales,
-      page,
-      limit,
-      order_by,
-      sort_by,
-      search
-    })
-      .then(result => {
-        responseJson(res, compiler.compilerPage(result, page, limit), 200)
+    if (approve) {
+      await preSales.findAndCountAll({
+        where: { "status": "APPROVE" },
       })
-      .catch(err => responseJson(res, err.parent.sqlMessage, 400))
+        .then(result => {
+          responseJson(res, result, 200)
+        }).catch(err => responseJson(res, err.parent.sqlMessage, 400))
+    } else {
+      await getWithPagination({
+        models: preSales,
+        page,
+        limit,
+        order_by,
+        sort_by,
+        search
+      })
+        .then(result => {
+          responseJson(res, compiler.compilerPage(result, page, limit), 200)
+        })
+        .catch(err => responseJson(res, err.parent.sqlMessage, 400))
+    }
+
   } catch (error) {
     responseJson(res, error.message, 500)
   }
@@ -98,7 +108,7 @@ exports.changeStatusPreSales = async (req, res) => {
                   status: status,
                   inspection_date: new Date(date)
                 })
-                .then( resultFinal => {
+                .then(resultFinal => {
                   resultFinal.dataValues = {
                     ...resultFinal.dataValues,
                     inspection_date: momentUtil.formatLocalDate(resultFinal.dataValues.inspection_date)

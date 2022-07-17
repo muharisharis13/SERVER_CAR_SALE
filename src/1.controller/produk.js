@@ -5,6 +5,7 @@ const {
   compiler: { compilerPage },
 } = require("../5.util");
 const utils = require("../5.util");
+const saveFile = require('../5.util');
 const { Op } = require("sequelize");
 
 // PRODUK==========================
@@ -153,19 +154,30 @@ exports.editProduk = async (req, res) => {
 };
 
 exports.addProduk = async (req, res) => {
-  const { nama_penjual, no_hp, email, merek, model } = req.body;
-  try {
-    const data1 = await produk.create({
-      nama_penjual,
-      no_hp,
-      email,
-      merek,
-      model,
-    });
-    utils.responseJson(res, data1, 201);
-  } catch (error) {
-    utils.responseJson(res, error, 500);
-  }
+  console.log(req.file)
+  // const { nama_penjual, no_hp, email, merek, model, jenis_kendaraan, bahan_bakar, tahun, tampil,harga, status,img_produk="" } = req.body;
+  // try {
+  //   if(req.file){
+  //     console.log(req.file)
+  //   }
+  //   const data1 = await produk.create({
+  //     nama_penjual,
+  //     no_hp,
+  //     email,
+  //     merek,
+  //     model,
+  //     jenis_kendaraan,
+  //     bahan_bakar,
+  //     tahun,
+  //     tampil,
+  //     harga,
+  //     status,
+  //     img_produk
+  //   });
+  //   utils.responseJson(res, data1, 201);
+  // } catch (error) {
+  //   utils.responseJson(res, error, 500);
+  // }
 };
 
 exports.deleteProduk = async (req, res) => {

@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require('body-parser');
 const router = express.Router();
 const controller = require("../1.controller");
 const utils = require("../5.util");
@@ -8,6 +9,11 @@ const auth = controller.ControllerAuth;
 const product = controller.ControllerProduk;
 const preSales = controller.ControllerPreSales;
 const user = controller.ControllerUser;
+
+let app = express();
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
+app.use('/images/produk', express.static('./uploads/produk'));
 
 router.post("/auth/login", auth.loginAdmin);
 router.post("/auth/register", auth.registerAdmin);

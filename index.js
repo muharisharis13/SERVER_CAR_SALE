@@ -9,6 +9,17 @@ const { db } = include("/src/4.database");
 
 app.use(cors());
 app.options("*", cors());
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  if (req.method === "OPTIONS") {
+      res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+      return res.status(200).json({});
+  }
+  next();
+})
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -17,7 +28,7 @@ ApiRoutes(app);
 
 // ====DATABASE
 
-db.sync();
+db.sync({});
 db.authenticate().then(() =>
   console.log("berhasil terkoneksi dengan database")
 );

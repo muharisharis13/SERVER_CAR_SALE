@@ -5,6 +5,7 @@ const getWithPagination = require("./pagination");
 const compiler = require("./compiler");
 const nodemailer= require("./nodemailer")
 const moment = require("./moment")
+const saveFile = require('./multer');
 
 module.exports = {
   crypto,
@@ -13,5 +14,6 @@ module.exports = {
   getWithPagination,
   compiler,
   nodemailer,
-  moment
+  moment,
+  saveFile
 };
