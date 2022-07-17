@@ -10,8 +10,8 @@ const ms_inspeksi = db.define(
   },
   {
     timestamp: true,
-    freezeTableName : true,
-    tableName : "ms_inspeksi"
+    freezeTableName: true,
+    tableName: "ms_inspeksi",
   }
 );
 

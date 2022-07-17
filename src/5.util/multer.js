@@ -1,14 +1,17 @@
-const multer = require('multer');
+const multer = require("multer");
 
-// Simpan Foto Produk
-let saveFile = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, './uploads/produk')
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + file.originalname)
-    }
-})
+let maxSize = 1 * 1024 * 1024;
 
+let storageFileProduct = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, process.env.PATH_UPLOAD_PRODUCT);
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+});
 
-uploadProduk = multer({ storage: saveFile })
+exports.uploadProductImg = multer({
+  storage: storageFileProduct,
+  limits: maxSize,
+});

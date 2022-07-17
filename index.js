@@ -11,14 +11,27 @@ app.use(cors());
 app.options("*", cors());
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
   if (req.method === "OPTIONS") {
-      res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-      return res.status(200).json({});
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    return res.status(200).json({});
   }
   next();
-})
+});
+
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
+app.use(
+  process.env.ROUTE_VIEW_PRODUCT,
+  express.static(process.env.PATH_UPLOAD_PRODUCT)
+);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -28,7 +41,7 @@ ApiRoutes(app);
 
 // ====DATABASE
 
-db.sync({});
+db.sync({ force: false });
 db.authenticate().then(() =>
   console.log("berhasil terkoneksi dengan database")
 );

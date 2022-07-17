@@ -3,9 +3,10 @@ const responseJson = require("./responseJson");
 const token = require("./token");
 const getWithPagination = require("./pagination");
 const compiler = require("./compiler");
-const nodemailer= require("./nodemailer")
-const moment = require("./moment")
-const saveFile = require('./multer');
+const nodemailer = require("./nodemailer");
+const moment = require("./moment");
+const multer = require("./multer");
+const fs = require("./fs");
 
 module.exports = {
   crypto,
@@ -15,5 +16,6 @@ module.exports = {
   compiler,
   nodemailer,
   moment,
-  saveFile
+  multer,
+  fs,
 };
