@@ -26,6 +26,8 @@ router.post(
   uploadImageProduct.single("img_product"),
   productInspections.addInspections
 );
+router.get("/inspections",checkToken,productInspections.getInspections);
+router.get("/inspections-items", checkToken, productInspections.getItemInspections)
 
 router.get("/pre-sales", checkToken, preSales.getDataListSales);
 router.get("/pre-sales/:id", checkToken, preSales.getDetailPreSales);
