@@ -154,30 +154,46 @@ exports.editProduk = async (req, res) => {
 };
 
 exports.addProduk = async (req, res) => {
-  console.log(req.file)
-  // const { nama_penjual, no_hp, email, merek, model, jenis_kendaraan, bahan_bakar, tahun, tampil,harga, status,img_produk="" } = req.body;
-  // try {
-  //   if(req.file){
-  //     console.log(req.file)
-  //   }
-  //   const data1 = await produk.create({
-  //     nama_penjual,
-  //     no_hp,
-  //     email,
-  //     merek,
-  //     model,
-  //     jenis_kendaraan,
-  //     bahan_bakar,
-  //     tahun,
-  //     tampil,
-  //     harga,
-  //     status,
-  //     img_produk
-  //   });
-  //   utils.responseJson(res, data1, 201);
-  // } catch (error) {
-  //   utils.responseJson(res, error, 500);
-  // }
+  const { nama_penjual, no_hp, email, merek, model, jenis_kendaraan, bahan_bakar, tahun, tampil,harga, status,img_produk="" } = req.body;
+  try {
+    
+     await produk.create({
+      nama_penjual,
+      no_hp,
+      email,
+      merek,
+      model,
+      jenis_kendaraan,
+      bahan_bakar,
+      tahun,
+      tampil,
+      harga,
+      status,
+      img_produk
+    })
+    .then(async result =>{
+      if(result.id){
+        await models.ms_inspeksi.findAll()
+        .then(resultInspeksi=>{
+          resultInspeksi?.map(async item=>{
+            await models.produk_inspeksi.create({
+              id_inspeksi:item.id,
+              id_produk:result.id,
+              status:"1"
+            })
+            
+          })
+          utils.responseJson(res, result, 201);
+        })
+      }
+      else{
+        utils.responseJson(res,"Failed Add Request",400)
+      }
+
+    })
+  } catch (error) {
+    utils.responseJson(res, error, 500);
+  }
 };
 
 exports.deleteProduk = async (req, res) => {
