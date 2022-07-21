@@ -5,12 +5,14 @@ const {
   compiler: { compilerPage },
 } = require("../5.util");
 const utils = require("../5.util");
-const saveFile = require('../5.util');
 const { Op } = require("sequelize");
+const { db } = require("../4.database");
 
 // PRODUK==========================
 
 const produk = models.produk;
+const produkImage = models.produk_image;
+const path = utils.path.pathViewImage;
 
 exports.getListYear = async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
@@ -120,25 +122,50 @@ exports.getProduk = async (req, res) => {
 exports.getDetailProduk = async (req, res) => {
   const { id } = req.params;
   try {
-    const result = await produk.findOne({ where: { id: id } });
-    utils.responseJson(res, result, 200);
+    const result = await db.query(
+      `select *,group_concat(image_produk) as image_produk from  products pr inner join produk_image pi   on pr.id=pi.id_produk where pr.id=${id}`
+    );
+
+    const image_produk =
+      result[0][0].image_produk !== null
+        ? result[0][0].image_produk
+            .split(",")
+            .map((item) => `${path(process.env.ROUTE_VIEW_PRODUCT, item)}`)
+        : [];
+    let newResult = {
+      ...result[0][0],
+      image_produk: image_produk,
+    };
+    utils.responseJson(res, newResult, 200);
   } catch (error) {
     utils.responseJson(res, error, 500);
   }
 };
 
 exports.editProduk = async (req, res) => {
-  const { nama_penjual, email, no_hp, merek, model } = req.body;
+  const {
+    merek,
+    model,
+    jenis_kendaraan,
+    bahan_bakar,
+    tampil,
+    tahun,
+    harga,
+    status,
+  } = req.body;
   const { id } = req.params;
   try {
     await produk.findOne({ where: { id: id } }).then((result) => {
       if (result?.dataValues) {
         result.update({
-          nama_penjual,
-          email,
-          no_hp,
           model,
           merek,
+          jenis_kendaraan,
+          bahan_bakar,
+          tampil,
+          tahun,
+          harga,
+          status,
         });
         utils.responseJson(res, result, 200);
       } else {
@@ -154,43 +181,68 @@ exports.editProduk = async (req, res) => {
 };
 
 exports.addProduk = async (req, res) => {
-  const { nama_penjual, no_hp, email, merek, model, jenis_kendaraan, bahan_bakar, tahun, tampil,harga, status,img_produk="" } = req.body;
+  const {
+    merek,
+    model,
+    jenis_kendaraan,
+    bahan_bakar,
+    tahun,
+    tampil,
+    harga,
+    status,
+    id_pre_sale,
+  } = req.body;
+  const { img_produk } = req.files;
   try {
-    
-     await produk.create({
-      nama_penjual,
-      no_hp,
-      email,
-      merek,
-      model,
-      jenis_kendaraan,
-      bahan_bakar,
-      tahun,
-      tampil,
-      harga,
-      status,
-      img_produk
-    })
-    .then(async result =>{
-      if(result.id){
-        await models.ms_inspeksi.findAll()
-        .then(resultInspeksi=>{
-          resultInspeksi?.map(async item=>{
-            await models.produk_inspeksi.create({
-              id_inspeksi:item.id,
-              id_produk:result.id,
-              status:"1"
-            })
-            
-          })
-          utils.responseJson(res, result, 201);
+    if (!img_produk) {
+      utils.responseJson(res, "img_produk required !", 400);
+    } else {
+      await produk
+        .create({
+          merek,
+          model,
+          jenis_kendaraan,
+          bahan_bakar,
+          tahun,
+          tampil,
+          harga,
+          status,
         })
-      }
-      else{
-        utils.responseJson(res,"Failed Add Request",400)
-      }
+        .then(async (result) => {
+          if (result.id) {
+            const preSales = await models.preSales.findOne({
+              where: {
+                id: id_pre_sale,
+              },
+            });
 
-    })
+            if (preSales?.id) {
+              preSales.update({
+                status: "DONE",
+              });
+            }
+
+            img_produk.map(async (item) => {
+              await produkImage.create({
+                id_produk: result.id,
+                image_produk: item.filename,
+              });
+            });
+            await models.ms_inspeksi.findAll().then((resultInspeksi) => {
+              resultInspeksi?.map(async (item) => {
+                await models.produk_inspeksi.create({
+                  id_inspeksi: item.id,
+                  id_produk: result.id,
+                  status: "1",
+                });
+              });
+            });
+            utils.responseJson(res, result, 201);
+          } else {
+            utils.responseJson(res, "Failed Add Request", 400);
+          }
+        });
+    }
   } catch (error) {
     utils.responseJson(res, error, 500);
   }

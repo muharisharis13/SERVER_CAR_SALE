@@ -7,6 +7,7 @@ const ms_merek = require("./ms_merek");
 const ms_kategori_inspeksi = require("./ms_kategori_inspeksi");
 const ms_inspeksi = require("./ms_inspeksi");
 const produk_inspeksi = require("./produk.inspkesi");
+const produk_image = require("./produk.image");
 
 module.exports = {
   user,
@@ -18,4 +19,5 @@ module.exports = {
   ms_kategori_inspeksi,
   ms_inspeksi,
   produk_inspeksi,
+  produk_image,
 };

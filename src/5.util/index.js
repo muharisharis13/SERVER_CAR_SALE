@@ -7,6 +7,7 @@ const nodemailer = require("./nodemailer");
 const moment = require("./moment");
 const multer = require("./multer");
 const fs = require("./fs");
+const path = require("./path");
 
 module.exports = {
   crypto,
@@ -18,4 +19,5 @@ module.exports = {
   moment,
   multer,
   fs,
+  path,
 };

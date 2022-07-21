@@ -5,9 +5,9 @@ const produk = db.define(
   "product",
   {
     img_produk: { type: sequalize.STRING(255), allowNull: true },
-    nama_penjual: { type: sequalize.STRING(255), allowNull: false },
-    no_hp: { type: sequalize.INTEGER(255), allowNull: false },
-    email: { type: sequalize.STRING(255), allowNull: false },
+    nama_penjual: { type: sequalize.STRING(255), allowNull: true },
+    no_hp: { type: sequalize.INTEGER(255), allowNull: true },
+    email: { type: sequalize.STRING(255), allowNull: true },
     merek: { type: sequalize.STRING(255), allowNull: false },
     model: { type: sequalize.STRING(255), allowNull: false },
     jenis_kendaraan: { type: sequalize.STRING(20), allowNull: false },
