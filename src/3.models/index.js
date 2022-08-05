@@ -8,6 +8,8 @@ const ms_kategori_inspeksi = require("./ms_kategori_inspeksi");
 const ms_inspeksi = require("./ms_inspeksi");
 const produk_inspeksi = require("./produk.inspkesi");
 const produk_image = require("./produk.image");
+const ms_models = require("./ms_models");
+const ms_bahan_bakar = require("./ms_bahan_bakar");
 
 module.exports = {
   user,
@@ -20,4 +22,6 @@ module.exports = {
   ms_inspeksi,
   produk_inspeksi,
   produk_image,
+  ms_models,
+  ms_bahan_bakar,
 };

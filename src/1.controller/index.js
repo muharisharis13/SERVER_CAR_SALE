@@ -6,6 +6,8 @@ const ControllerPreSales = require("./preSales");
 const ControllerMsTypeVehicle = require("./ms_jenis_kendaraan");
 const ControllerMerek = require("./ms_merek");
 const ControllerProductInspections = require("./produk.inspeksi");
+const ControllerMsModels = require("./ms_models");
+const ControllerMsBahanBakar = require("./ms_bahan_bakar");
 
 module.exports = {
   ControllerUser,
@@ -16,4 +18,6 @@ module.exports = {
   ControllerMsTypeVehicle,
   ControllerMerek,
   ControllerProductInspections,
+  ControllerMsModels,
+  ControllerMsBahanBakar,
 };

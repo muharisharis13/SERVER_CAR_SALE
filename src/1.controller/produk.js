@@ -12,7 +12,52 @@ const { db } = require("../4.database");
 
 const produk = models.produk;
 const produkImage = models.produk_image;
+const produkInspeksi = models.produk_inspeksi;
+const msInspeksi = models.ms_inspeksi;
+const msKategoriInspeksi = models.ms_kategori_inspeksi;
+
 const path = utils.path.pathViewImage;
+
+produk.hasMany(produkImage, {
+  foreignKey: { name: "id_produk", allowNull: false },
+});
+produkImage.belongsTo(produk, {
+  foreignKey: { name: "id_produk", allowNull: false },
+});
+
+produk.hasMany(produkInspeksi, {
+  foreignKey: { name: "id_produk" },
+});
+
+produkInspeksi.belongsTo(produk, {
+  foreignKey: {
+    name: "id_produk",
+  },
+});
+
+msInspeksi.hasMany(produkInspeksi, {
+  foreignKey: {
+    name: "id_inspeksi",
+  },
+});
+
+produkInspeksi.belongsTo(msInspeksi, {
+  foreignKey: {
+    name: "id_inspeksi",
+  },
+});
+
+msKategoriInspeksi.hasMany(msInspeksi, {
+  foreignKey: {
+    name: "id_kategori",
+  },
+});
+
+msInspeksi.belongsTo(msKategoriInspeksi, {
+  foreignKey: {
+    name: "id_kategori",
+  },
+});
 
 exports.getListYear = async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
@@ -32,37 +77,157 @@ exports.getListYear = async (req, res) => {
   }
 };
 
+exports.getDetailProdukUser = async (req, res) => {
+  const { id_produk } = req.params;
+  try {
+    await produk
+      .findOne({
+        where: {
+          id: id_produk,
+        },
+        include: [
+          {
+            model: produkImage,
+          },
+          {
+            model: produkInspeksi,
+            include: [
+              {
+                model: msInspeksi,
+                include: [
+                  {
+                    model: msKategoriInspeksi,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      })
+      .then(async (result) => {
+        // let newResult = ;
+        let newResult = {
+          id: result["id"],
+          merek: result["merek"],
+          model: result["model"],
+          jenis_kendaraan: result["jenis_kendaraan"],
+          bahan_bakar: result["bahan_bakar"],
+          tahun: result["tahun"],
+          kilometer: result["kilometer"],
+          tampil: result["tampil"],
+          harga: result["harga"],
+          status: result["status"],
+          createdAt: result["createdAt"],
+          updatedAt: result["updatedAt"],
+          produk_images: result.produk_images?.map(
+            (pi) => `${path(process.env.ROUTE_VIEW_PRODUCT, pi.image_produk)}`
+          ),
+          produk_inspeksis: result.produk_inspeksis,
+        };
+        await responseJson(res, newResult, 200);
+      })
+      .catch((err) => {
+        console.log("ini err", err.message);
+        responseJson(res, err.response, 400);
+      });
+  } catch (error) {
+    responseJson(res, error, 500);
+  }
+};
+
 exports.getProductUser = async (req, res) => {
   const {
     page = 1,
     limit = 10,
     order_by = "id",
-    sort_by = "ASC",
+    sort_by = "DESC",
     model = "",
     merek = "",
+    tahun = "",
+    fuel = "",
   } = req.query;
+  let offset = 0 + (parseInt(page) - 1) * parseInt(limit);
   try {
     await produk
       .findAndCountAll({
-        offset: 0 + (page - 1) * limit,
-        limit: limit,
+        offset: offset,
+        limit: parseInt(limit),
         order: [[order_by, sort_by]],
         where: {
-          [Op.or]: [
-            {
-              model: {
-                [Op.like]: `%${model}%`,
-              },
-              merek: {
-                [Op.like]: `%${merek}%`,
-              },
-            },
-          ],
+          merek: {
+            [Op.like]: `%${merek}%`,
+          },
+          model: {
+            [Op.like]: `%${model}%`,
+          },
+          tahun: {
+            [Op.like]: `%${tahun}%`,
+          },
+          bahan_bakar: {
+            [Op.like]: `%${fuel}%`,
+          },
         },
+        include: [
+          {
+            model: produkImage,
+          },
+        ],
       })
       .then((result) => {
-        responseJson(res, compilerPage(result, page, limit), 200);
+        const { rows } = result;
+        let newData = rows.map((item) => ({
+          id: item.id,
+          nama_penjualn: item.nama_penjual,
+          merek: item.merek,
+          model: item.model,
+          jenis_kendaraan: item.jenis_kendaraan,
+          bahan_bakar: item.bahan_bakar,
+          tahun: item.tahun,
+          kilometer: item.kilometer,
+          tampil: item.tampil,
+          harga: item.harga,
+          status: item.status,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+          produk_images: item.produk_images?.map(
+            (pi) => `${path(process.env.ROUTE_VIEW_PRODUCT, pi.image_produk)}`
+          ),
+        }));
+        responseJson(
+          res,
+          {
+            data: newData,
+            total_page: Math.ceil(result.count / parseInt(limit)),
+            page: parseInt(page),
+            limit: parseInt(limit),
+          },
+          200
+        );
+      })
+      .catch((err) => {
+        responseJson(res, err, 400);
+        console.log({ err });
       });
+    // await produk
+    //   .findAndCountAll({
+    //     offset: 0 + (parseInt(page) - 1) * parseInt(limit),
+    //     limit: parseInt(limit),
+    //     order: [[order_by, sort_by]],
+    //     where: {
+    //       [Op.or]: [
+    //         {
+    //           model: {
+    //             [Op.like]: `%${model}%`,
+    //           },
+    //           merek: {
+    //             [Op.like]: `%${merek}%`,
+    //           },
+    //         },
+    //       ],
+    //     },
+    //   })
+    //   .then((result) => {
+    // });
   } catch (error) {
     responseJson(res, error, 500);
   }
@@ -73,21 +238,70 @@ exports.getProductFeatured = async (req, res) => {
     page = 1,
     limit = 10,
     order_by = "id",
-    sort_by = "ASC",
-    search = "",
+    sort_by = "DESC",
+    model = "",
+    merek = "",
+    tahun = "",
+    fuel = "",
   } = req.query;
+  let offset = 0 + (parseInt(page) - 1) * parseInt(limit);
   try {
-    await getWithPagination({
-      models: produk,
-      page,
-      limit,
-      order_by,
-      sort_by,
-      field: "merek",
-      search,
-    }).then((result) => {
-      responseJson(res, compilerPage(result, page, limit), 200);
-    });
+    await produk
+      .findAndCountAll({
+        offset: offset,
+        limit: parseInt(limit),
+        order: [[order_by, sort_by]],
+        where: {
+          merek: {
+            [Op.like]: `%${merek}%`,
+          },
+          model: {
+            [Op.like]: `%${model}%`,
+          },
+          tahun: {
+            [Op.like]: `%${tahun}%`,
+          },
+          bahan_bakar: {
+            [Op.like]: `%${fuel}%`,
+          },
+        },
+        include: [
+          {
+            model: produkImage,
+          },
+        ],
+      })
+      .then((result) => {
+        const { rows } = result;
+        let newData = rows.map((item) => ({
+          id: item.id,
+          nama_penjualn: item.nama_penjual,
+          merek: item.merek,
+          model: item.model,
+          jenis_kendaraan: item.jenis_kendaraan,
+          bahan_bakar: item.bahan_bakar,
+          tahun: item.tahun,
+          kilometer: item.kilometer,
+          tampil: item.tampil,
+          harga: item.harga,
+          status: item.status,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+          produk_images: item.produk_images?.map(
+            (pi) => `${path(process.env.ROUTE_VIEW_PRODUCT, pi.image_produk)}`
+          ),
+        }));
+        responseJson(
+          res,
+          {
+            data: newData,
+            total_page: Math.ceil(result.count / parseInt(limit)),
+            page: parseInt(page),
+            limit: parseInt(limit),
+          },
+          200
+        );
+      });
   } catch (error) {
     responseJson(res, error, 500);
   }

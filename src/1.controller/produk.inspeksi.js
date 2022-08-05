@@ -6,6 +6,7 @@ const {
   fs: { deleteFile },
 } = require("../5.util");
 const { db } = require("../4.database");
+const { existingFiles } = require("../5.util/fs");
 
 // image_produk : `http://localhost:1234/uploads/produk/${req.file.filename}`
 exports.updateInspections = async (req, res) => {
@@ -38,7 +39,11 @@ exports.updateInspections = async (req, res) => {
         status,
         image: null,
       });
-      deleteFile(res, `${process.env.PATH_UPLOAD_PRODUCT}/${filename}`);
+      if (
+        existingFiles(res, `${process.env.PATH_UPLOAD_PRODUCT}/${filename}`)
+      ) {
+        deleteFile(res, `${process.env.PATH_UPLOAD_PRODUCT}/${filename}`);
+      }
       responseJson(res, "success update inspections", 200);
     }
   } catch (error) {
