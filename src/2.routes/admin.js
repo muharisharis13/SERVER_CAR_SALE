@@ -10,6 +10,7 @@ const product = controller.ControllerProduk;
 const preSales = controller.ControllerPreSales;
 const user = controller.ControllerUser;
 const productInspections = controller.ControllerProductInspections;
+const preBuy = controller.ControllerPreBuy;
 
 router.post("/auth/login", auth.loginAdmin);
 router.post("/auth/register", auth.registerAdmin);
@@ -49,5 +50,8 @@ router.put(
 router.get("/user", checkToken, user.getUser);
 
 router.get("/status", checkToken, preSales.getStatus);
+
+router.get("/pre-buy", checkToken, preBuy.admin.getList);
+
 
 module.exports = router;

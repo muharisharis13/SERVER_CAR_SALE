@@ -11,6 +11,7 @@ const ms_type_vehicle = Controller.ControllerMsTypeVehicle;
 const ms_merek = Controller.ControllerMerek;
 const ms_models = Controller.ControllerMsModels;
 const ms_bahan_bakar = Controller.ControllerMsBahanBakar;
+const pre_buy = Controller.ControllerPreBuy;
 
 router.post("/auth/login", Auth.loginUser);
 router.post("/auth/register", Auth.registerUser);
@@ -28,5 +29,8 @@ router.get("/ms_type_vehicle", ms_type_vehicle.getMsJenisKendaraan);
 router.get("/ms_merek", ms_merek.user.getMsMerek);
 router.get("/ms_models", ms_models.user.getList);
 router.get("/ms_bahan_bakar", ms_bahan_bakar.user.getList);
+router.post("/pre-buy",checkToken,pre_buy.user.postPrebuy);
+
+
 
 exports.User = router;

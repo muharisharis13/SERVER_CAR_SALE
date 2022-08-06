@@ -10,6 +10,7 @@ const produk_inspeksi = require("./produk.inspkesi");
 const produk_image = require("./produk.image");
 const ms_models = require("./ms_models");
 const ms_bahan_bakar = require("./ms_bahan_bakar");
+const preBuy = require('./preBuy');
 
 module.exports = {
   user,
@@ -24,4 +25,5 @@ module.exports = {
   produk_image,
   ms_models,
   ms_bahan_bakar,
+  preBuy
 };

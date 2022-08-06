@@ -40,8 +40,9 @@ app.use(bodyParser.json());
 ApiRoutes(app);
 
 // ====DATABASE
+app.keepAliveTimeOut = 0 ;
 
-db.sync({ force: false });
+db.sync();
 db.authenticate().then(() =>
   console.log("berhasil terkoneksi dengan database")
 );
